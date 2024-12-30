@@ -1,24 +1,40 @@
 import { executeQuery } from '@/lib/db'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
-export async function PUT(
-    request: Request,
-    { params }: { params: { id: string } }
-) {
+// PUT handler
+export async function PUT(request: NextRequest) {
+    const { pathname } = request.nextUrl
+    const id = pathname.split('/').pop() // Extract userId from the URL
+
+    if (!id) {
+        return NextResponse.json({ success: false, message: 'User ID is required' }, { status: 400 })
+    }
+
     try {
         const body = await request.json()
+
         const query = `
             UPDATE [User]
             SET 
-                UserFName = '${body.UserFName}',
-                UserLName = '${body.UserLName}',
-                UserEmail = '${body.UserEmail}',
-                UserPhone = '${body.UserPhone}',
-                UserRole = '${body.UserRole}'
-                ${body.Password ? `, Password = '${body.Password}'` : ''}
-            WHERE UserID = ${params.id}
+                UserFName = @UserFName,
+                UserLName = @UserLName,
+                UserEmail = @UserEmail,
+                UserPhone = @UserPhone,
+                UserRole = @UserRole
+                ${body.Password ? `, Password = @Password` : ''}
+            WHERE UserID = @UserID
         `
-        await executeQuery(query)
+
+        await executeQuery(query, [
+            body.UserFName,
+            body.UserLName,
+            body.UserEmail,
+            body.UserPhone,
+            body.UserRole,
+            body.Password,
+            id
+        ])
+
         return NextResponse.json({ success: true })
     } catch (error) {
         console.error('Update user error:', error)
@@ -29,16 +45,19 @@ export async function PUT(
     }
 }
 
-export async function DELETE(
-    request: Request,
-    { params }: { params: { id: string } }
-) {
+// DELETE handler
+export async function DELETE(request: NextRequest) {
+    const { pathname } = request.nextUrl
+    const id = pathname.split('/').pop() // Extract userId from the URL
+
+    if (!id) {
+        return NextResponse.json({ success: false, message: 'User ID is required' }, { status: 400 })
+    }
+
     try {
-        const query = `
-            DELETE FROM [User]
-            WHERE UserID = ${params.id}
-        `
-        await executeQuery(query)
+        const query = `DELETE FROM [User] WHERE UserID = @UserID`
+        await executeQuery(query, [id])
+
         return NextResponse.json({ success: true })
     } catch (error) {
         console.error('Delete user error:', error)
