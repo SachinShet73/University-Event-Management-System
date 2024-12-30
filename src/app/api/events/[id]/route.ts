@@ -3,7 +3,7 @@ import { executeQuery } from '@/lib/db';
 
 // GET handler
 export async function GET(request: NextRequest) {
-    // Extract the 'id' from the request URL
+    // Extsract the 'id' from the request URL
     const { pathname } = request.nextUrl;
     const segments = pathname.split('/');
     const id = segments[segments.length - 1]; // Assuming 'id' is the last segment
