@@ -1,10 +1,19 @@
 // src/app/api/events/[id]/route.ts
 import { executeQuery } from '@/lib/db'
-import { NextRequest, NextResponse } from 'next/server'
+import { type NextRequest } from 'next/server'
+import { NextResponse } from 'next/server'
+
+// Define the route segment config according to Next.js 14
+interface RouteSegmentConfig {
+  params: {
+    id: string;
+  };
+  searchParams: Record<string, string | string[]>;
+}
 
 export async function GET(
-    request: NextRequest,
-    { params }: { params: { id: string } }  // Direct inline type
+    req: NextRequest,
+    segment: RouteSegmentConfig  // Use the correct type
 ) {
     try {
         const query = `
@@ -26,7 +35,7 @@ export async function GET(
             JOIN EventCategory ec ON e.EventCategoryID = ec.EventCategoryID
             WHERE e.EventID = @param0
         `
-        const result = await executeQuery(query, [params.id])
+        const result = await executeQuery(query, [segment.params.id])
         
         if (!result || result.length === 0) {
             return NextResponse.json(
@@ -51,7 +60,7 @@ export async function GET(
 
 export async function PUT(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    segment: RouteSegmentConfig
 ) {
     try {
         const body = await request.json()
@@ -75,7 +84,7 @@ export async function PUT(
             body.VenueID,
             body.EventCategoryID,
             body.EventBudget,
-            params.id
+            segment.params.id
         ])
         return NextResponse.json({ success: true })
     } catch (error) {
@@ -88,12 +97,12 @@ export async function PUT(
 }
 
 export async function DELETE(
-    request: NextRequest,
-    { params }: { params: { id: string } }
+    _request: NextRequest,
+    segment: RouteSegmentConfig
 ) {
     try {
         const query = `DELETE FROM Event WHERE EventID = @param0`
-        await executeQuery(query, [params.id])
+        await executeQuery(query, [segment.params.id])
         return NextResponse.json({ success: true })
     } catch (error) {
         console.error('Delete event error:', error)
