@@ -1,20 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { executeQuery } from '@/lib/db';
 
-// Updated type definition for the context parameter
-type RouteContext = {
-    params: {
-        userId: string;
-    };
-};
-
-// GET handler with correct type signature
+// Updated with correct Next.js types
 export async function GET(
     request: NextRequest,
-    context: RouteContext  // Changed this line
+    { params }: { params: { id: string } }
 ) {
     try {
-        const id = context.params.userId;
+        const id = params.id;
 
         const query = `
             SELECT 
@@ -55,13 +48,12 @@ export async function GET(
     }
 }
 
-// PUT handler with updated type signature
 export async function PUT(
     request: NextRequest,
-    context: RouteContext  // Changed this line
+    { params }: { params: { id: string } }
 ) {
     try {
-        const id = context.params.userId;
+        const id = params.id;
         const body = await request.json();
         
         const query = `
@@ -98,13 +90,12 @@ export async function PUT(
     }
 }
 
-// DELETE handler with updated type signature
 export async function DELETE(
     request: NextRequest,
-    context: RouteContext  // Changed this line
+    { params }: { params: { id: string } }
 ) {
     try {
-        const id = context.params.userId;
+        const id = params.id;
         
         const query = `DELETE FROM Event WHERE EventID = @param0`;
         await executeQuery(query, [id]);
