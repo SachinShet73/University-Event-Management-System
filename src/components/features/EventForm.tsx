@@ -1,7 +1,8 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { Calendar, MapPin, Users, Clock, Save, XCircle } from 'lucide-react'
+
 
 interface Venue {
   VenueID: number
@@ -22,6 +23,8 @@ interface EventFormProps {
   organizerId: number;
 }
 
+
+
 export default function EventForm({ eventId, onClose, onSave, userRole, organizerId }: EventFormProps) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -39,64 +42,68 @@ export default function EventForm({ eventId, onClose, onSave, userRole, organize
     OrganizerID: organizerId.toString()
   })
 
+  const fetchEventDetails = useCallback(async () => {
+    if (!eventId) return
+  
+    try {
+        console.log('Fetching event details for ID:', eventId)
+        const response = await fetch(`/api/events/${eventId}`)
+        const data = await response.json()
+        console.log('Received event data:', data)
+  
+        if (data.success) {
+            setFormData({
+                EventTitle: data.event.EventTitle || '',
+                EventDescription: data.event.EventDescription || '',
+                StartDate: data.event.StartDate || '',
+                EndDate: data.event.EndDate || '',
+                VenueID: data.event.VenueID.toString() || '',
+                EventCategoryID: data.event.EventCategoryID.toString() || '',
+                EventBudget: data.event.EventBudget.toString() || '',
+                OrganizerID: data.event.OrganizerID?.toString() || organizerId.toString()
+            })
+        }
+    } catch (error) {
+        console.error('Error fetching event details:', error)
+        setError('Failed to load event details')
+    }
+  }, [eventId, organizerId]);
+  
+  const fetchVenues = useCallback(async () => {
+    try {
+        const response = await fetch('/api/venues')
+        const data = await response.json()
+        if (data.success) {
+            setVenues(data.venues)
+        }
+    } catch (error) {
+        setError('Failed to load venues')
+    }
+  }, []);
+  
+  const fetchCategories = useCallback(async () => {
+    try {
+        const response = await fetch('/api/categories')
+        const data = await response.json()
+        if (data.success) {
+            setCategories(data.categories)
+        }
+    } catch (error) {
+        setError('Failed to load categories')
+    }
+  }, []);
+
   useEffect(() => {
     fetchVenues()
     fetchCategories()
     if (eventId) {
-      fetchEventDetails()
+        fetchEventDetails()
     }
-  }, [eventId])
+}, [eventId, fetchEventDetails])
 
-  const fetchVenues = async () => {
-    try {
-      const response = await fetch('/api/venues')
-      const data = await response.json()
-      if (data.success) {
-        setVenues(data.venues)
-      }
-    } catch (error) {
-      setError('Failed to load venues')
-    }
-  }
 
-  const fetchCategories = async () => {
-    try {
-      const response = await fetch('/api/categories')
-      const data = await response.json()
-      if (data.success) {
-        setCategories(data.categories)
-      }
-    } catch (error) {
-      setError('Failed to load categories')
-    }
-  }
 
-  const fetchEventDetails = async () => {
-    if (!eventId) return
 
-    try {
-      console.log('Fetching event details for ID:', eventId)
-      const response = await fetch(`/api/events/${eventId}`)
-      const data = await response.json()
-      console.log('Received event data:', data)
-
-      if (data.success) {
-        setFormData({
-          EventTitle: data.event.EventTitle || '',
-          EventDescription: data.event.EventDescription || '',
-          StartDate: data.event.StartDate || '',
-          EndDate: data.event.EndDate || '',
-          VenueID: data.event.VenueID.toString() || '',
-          EventCategoryID: data.event.EventCategoryID.toString() || '',
-          EventBudget: data.event.EventBudget.toString() || '',
-          OrganizerID: data.event.OrganizerID?.toString() || organizerId.toString()
-        })
-      }
-    } catch (error) {
-      console.error('Error fetching event details:', error)
-      setError('Failed to load event details')
-    }
-  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
