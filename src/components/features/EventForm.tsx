@@ -99,7 +99,7 @@ export default function EventForm({ eventId, onClose, onSave, userRole, organize
     if (eventId) {
         fetchEventDetails()
     }
-}, [eventId, fetchEventDetails])
+}, [eventId, fetchEventDetails, fetchCategories, fetchVenues]) // Added fetchCategories and fetchVenues
 
 
 
