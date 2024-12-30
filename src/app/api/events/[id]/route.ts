@@ -2,9 +2,15 @@
 import { executeQuery } from '@/lib/db'
 import { NextRequest, NextResponse } from 'next/server'
 
+type Props = {
+  params: {
+    id: string
+  }
+}
+
 export async function GET(
-    request: NextRequest,
-    context: { params: { id: string } }
+    _request: NextRequest,
+    { params }: Props
 ) {
     try {
         const query = `
@@ -26,7 +32,7 @@ export async function GET(
             JOIN EventCategory ec ON e.EventCategoryID = ec.EventCategoryID
             WHERE e.EventID = @param0
         `
-        const result = await executeQuery(query, [context.params.id])
+        const result = await executeQuery(query, [params.id])
         
         if (!result || result.length === 0) {
             return NextResponse.json(
@@ -51,7 +57,7 @@ export async function GET(
 
 export async function PUT(
     request: NextRequest,
-    context: { params: { id: string } }
+    { params }: Props
 ) {
     try {
         const body = await request.json()
@@ -75,7 +81,7 @@ export async function PUT(
             body.VenueID,
             body.EventCategoryID,
             body.EventBudget,
-            context.params.id
+            params.id
         ])
         return NextResponse.json({ success: true })
     } catch (error) {
@@ -88,12 +94,12 @@ export async function PUT(
 }
 
 export async function DELETE(
-    request: NextRequest,
-    context: { params: { id: string } }
+    _request: NextRequest,
+    { params }: Props
 ) {
     try {
         const query = `DELETE FROM Event WHERE EventID = @param0`
-        await executeQuery(query, [context.params.id])
+        await executeQuery(query, [params.id])
         return NextResponse.json({ success: true })
     } catch (error) {
         console.error('Delete event error:', error)
