@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Building, Edit, Trash2, Plus, Search, X } from 'lucide-react'
+import {  Edit, Trash2, Plus, Search, X } from 'lucide-react'
 
 interface Venue {
   VenueID: number

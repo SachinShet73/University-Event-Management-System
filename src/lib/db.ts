@@ -27,7 +27,7 @@ const poolPromise = new sql.ConnectionPool(config)
         throw err
     })
 
-export async function executeQuery(query: string, params?: any[]) {
+export async function executeQuery(query: string, params?: Record<string, unknown>) {
     try {
         const pool = await poolPromise
         const request = pool.request()
