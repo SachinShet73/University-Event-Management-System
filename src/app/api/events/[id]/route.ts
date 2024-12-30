@@ -2,13 +2,13 @@ import { NextRequest, NextResponse } from 'next/server';
 import { executeQuery } from '@/lib/db';
 
 // GET handler
-export async function GET(request: NextRequest) {
-    // Extsract the 'id' from the request URL
-    const { pathname } = request.nextUrl;
-    const segments = pathname.split('/');
-    const id = segments[segments.length - 1]; // Assuming 'id' is the last segment
-
+export async function GET(
+    request: NextRequest,
+    { params }: { params: { userId: string } }
+) {
     try {
+        const id = params.userId;
+
         const query = `
             SELECT 
                 e.EventID,
@@ -49,14 +49,14 @@ export async function GET(request: NextRequest) {
 }
 
 // PUT handler
-export async function PUT(request: NextRequest) {
-    // Extract the 'id' from the request URL
-    const { pathname } = request.nextUrl;
-    const segments = pathname.split('/');
-    const id = segments[segments.length - 1]; // Assuming 'id' is the last segment
-
+export async function PUT(
+    request: NextRequest,
+    { params }: { params: { userId: string } }
+) {
     try {
+        const id = params.userId;
         const body = await request.json();
+        
         const query = `
             UPDATE Event
             SET 
@@ -69,6 +69,7 @@ export async function PUT(request: NextRequest) {
                 EventBudget = @param6
             WHERE EventID = @param7
         `;
+        
         await executeQuery(query, [
             body.EventTitle,
             body.EventDescription,
@@ -79,6 +80,7 @@ export async function PUT(request: NextRequest) {
             body.EventBudget,
             id
         ]);
+        
         return NextResponse.json({ success: true });
     } catch (error) {
         console.error('Update event error:', error);
@@ -90,15 +92,16 @@ export async function PUT(request: NextRequest) {
 }
 
 // DELETE handler
-export async function DELETE(request: NextRequest) {
-    // Extract the 'id' from the request URL
-    const { pathname } = request.nextUrl;
-    const segments = pathname.split('/');
-    const id = segments[segments.length - 1]; // Assuming 'id' is the last segment
-
+export async function DELETE(
+    request: NextRequest,
+    { params }: { params: { userId: string } }
+) {
     try {
+        const id = params.userId;
+        
         const query = `DELETE FROM Event WHERE EventID = @param0`;
         await executeQuery(query, [id]);
+        
         return NextResponse.json({ success: true });
     } catch (error) {
         console.error('Delete event error:', error);
