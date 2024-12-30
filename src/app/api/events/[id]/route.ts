@@ -2,15 +2,9 @@
 import { executeQuery } from '@/lib/db'
 import { NextRequest, NextResponse } from 'next/server'
 
-type Props = {
-  params: {
-    id: string
-  }
-}
-
 export async function GET(
-    _request: NextRequest,
-    { params }: Props
+    request: NextRequest,
+    { params }: { params: { id: string } }  // Direct inline type
 ) {
     try {
         const query = `
@@ -57,7 +51,7 @@ export async function GET(
 
 export async function PUT(
     request: NextRequest,
-    { params }: Props
+    { params }: { params: { id: string } }
 ) {
     try {
         const body = await request.json()
@@ -94,8 +88,8 @@ export async function PUT(
 }
 
 export async function DELETE(
-    _request: NextRequest,
-    { params }: Props
+    request: NextRequest,
+    { params }: { params: { id: string } }
 ) {
     try {
         const query = `DELETE FROM Event WHERE EventID = @param0`
