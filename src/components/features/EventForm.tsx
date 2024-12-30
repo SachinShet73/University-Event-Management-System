@@ -93,13 +93,20 @@ export default function EventForm({ eventId, onClose, onSave, userRole, organize
     }
   }, []);
 
-  useEffect(() => {
-    fetchVenues()
-    fetchCategories()
-    if (eventId) {
-        fetchEventDetails()
-    }
-}, [eventId, fetchEventDetails, fetchCategories, fetchVenues]) // Added fetchCategories and fetchVenues
+// Add these two separate useEffect hooks instead of the single one
+
+// Effect for loading venues and categories
+useEffect(() => {
+  fetchVenues();
+  fetchCategories();
+}, [fetchVenues, fetchCategories]);
+
+// Effect for loading event details
+useEffect(() => {
+  if (eventId) {
+      fetchEventDetails();
+  }
+}, [eventId, fetchEventDetails]);
 
 
 
