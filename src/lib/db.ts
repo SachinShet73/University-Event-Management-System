@@ -1,7 +1,8 @@
+// src/lib/db.ts
 import sql from 'mssql'
 
 const config = {
-    server: 'SEROSH',  // Default instance
+    server: 'SEROSH',
     database: 'UniversityEventManagementSystem',
     user: 'Sachina',
     password: 'Sachina',
@@ -15,7 +16,6 @@ const config = {
     requestTimeout: 30000
 }
 
-// Create a connection pool
 const poolPromise = new sql.ConnectionPool(config)
     .connect()
     .then(pool => {
@@ -27,10 +27,18 @@ const poolPromise = new sql.ConnectionPool(config)
         throw err
     })
 
-export async function executeQuery(query: string, params?: Record<string, unknown>) {
+export async function executeQuery(query: string, params?: (string | number)[]) {
     try {
         const pool = await poolPromise
         const request = pool.request()
+
+        // Add parameters if they exist
+        if (params) {
+            params.forEach((param, index) => {
+                request.input(`param${index}`, param)
+            })
+        }
+
         console.log('Executing query:', query)
         const result = await request.query(query)
         return result.recordset
