@@ -1,8 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { executeQuery } from '@/lib/db';
 
-export async function GET(request: NextRequest, context: { params: { id: string } }) {
-    const { id } = context.params;
+// GET handler
+export async function GET(request: NextRequest) {
+    // Extract the 'id' from the request URL
+    const { pathname } = request.nextUrl;
+    const segments = pathname.split('/');
+    const id = segments[segments.length - 1]; // Assuming 'id' is the last segment
+
     try {
         const query = `
             SELECT 
@@ -24,7 +29,7 @@ export async function GET(request: NextRequest, context: { params: { id: string 
             WHERE e.EventID = @param0
         `;
         const result = await executeQuery(query, [id]);
-        
+
         if (!result?.length) {
             return NextResponse.json({ success: false, message: 'Event not found' }, { status: 404 });
         }
@@ -43,8 +48,13 @@ export async function GET(request: NextRequest, context: { params: { id: string 
     }
 }
 
-export async function PUT(request: NextRequest, context: { params: { id: string } }) {
-    const { id } = context.params;
+// PUT handler
+export async function PUT(request: NextRequest) {
+    // Extract the 'id' from the request URL
+    const { pathname } = request.nextUrl;
+    const segments = pathname.split('/');
+    const id = segments[segments.length - 1]; // Assuming 'id' is the last segment
+
     try {
         const body = await request.json();
         const query = `
@@ -79,8 +89,13 @@ export async function PUT(request: NextRequest, context: { params: { id: string 
     }
 }
 
-export async function DELETE(request: NextRequest, context: { params: { id: string } }) {
-    const { id } = context.params;
+// DELETE handler
+export async function DELETE(request: NextRequest) {
+    // Extract the 'id' from the request URL
+    const { pathname } = request.nextUrl;
+    const segments = pathname.split('/');
+    const id = segments[segments.length - 1]; // Assuming 'id' is the last segment
+
     try {
         const query = `DELETE FROM Event WHERE EventID = @param0`;
         await executeQuery(query, [id]);
