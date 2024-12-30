@@ -1,11 +1,14 @@
 // src/app/api/events/[id]/route.ts
+import { NextRequest, NextResponse } from 'next/server'
 import { executeQuery } from '@/lib/db'
-import { type NextRequest } from 'next/server'
-import { NextResponse } from 'next/server'
+
+type RouteHandlerParams = {
+  id: string;
+}
 
 export async function GET(
-    _req: Request,
-    { params }: { params: { id: string } }
+    _request: Request,
+    { params }: { params: RouteHandlerParams }
 ) {
     try {
         const query = `
@@ -52,7 +55,7 @@ export async function GET(
 
 export async function PUT(
     request: Request,
-    { params }: { params: { id: string } }
+    { params }: { params: RouteHandlerParams }
 ) {
     try {
         const body = await request.json()
@@ -90,7 +93,7 @@ export async function PUT(
 
 export async function DELETE(
     _request: Request,
-    { params }: { params: { id: string } }
+    { params }: { params: RouteHandlerParams }
 ) {
     try {
         const query = `DELETE FROM Event WHERE EventID = @param0`
