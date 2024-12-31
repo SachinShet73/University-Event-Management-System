@@ -1,49 +1,79 @@
 // src/lib/db.ts
 import sql from 'mssql'
 
-const config = {
-    server: 'SEROSH',
-    database: 'UniversityEventManagementSystem',
-    user: 'Sachina',
-    password: 'Sachina',
+const config: sql.config = {
+    server: process.env.DB_SERVER || 'SEROSH',
+    database: process.env.DB_NAME || 'UniversityEventManagementSystem',
+    user: process.env.DB_USER || 'Sachina',
+    password: process.env.DB_PASSWORD || 'Sachina',
     options: {
         trustServerCertificate: true,
         encrypt: false,
         enableArithAbort: true
+    },
+    pool: {
+        min: 2,
+        max: 10,
+        idleTimeoutMillis: 30000
     },
     port: 1433,
     connectionTimeout: 30000,
     requestTimeout: 30000
 }
 
-const poolPromise = new sql.ConnectionPool(config)
-    .connect()
-    .then(pool => {
-        console.log('Connected to database')
-        return pool
-    })
-    .catch(err => {
-        console.log('Database Connection Failed:', err)
-        throw err
-    })
+let pool: sql.ConnectionPool | null = null;
 
-export async function executeQuery(query: string, params?: (string | number)[]) {
+export async function executeQuery(query: string, params?: (string | number | null)[]) {
     try {
-        const pool = await poolPromise
-        const request = pool.request()
+        if (!pool) {
+            pool = await new sql.ConnectionPool(config).connect();
+            console.log('Connected to database:', config.database);
+        }
+
+        const request = pool.request();
 
         // Add parameters if they exist
         if (params) {
             params.forEach((param, index) => {
-                request.input(`param${index}`, param)
-            })
+                // Handle different types of parameters
+                if (param === null) {
+                    request.input(`param${index}`, sql.VarChar, null);
+                } else if (typeof param === 'number') {
+                    request.input(`param${index}`, sql.Int, param);
+                } else {
+                    request.input(`param${index}`, sql.VarChar, param);
+                }
+            });
         }
 
-        console.log('Executing query:', query)
-        const result = await request.query(query)
-        return result.recordset
+        const result = await request.query(query);
+        return result.recordset;
     } catch (error) {
-        console.error('Database query error:', error)
-        throw error
+        console.error('Database query error:', error);
+        throw error;
     }
 }
+
+// Handle cleanup on application shutdown
+process.on('SIGTERM', async () => {
+    try {
+        if (pool) {
+            await pool.close();
+            pool = null;
+        }
+    } catch (error) {
+        console.error('Error closing pool:', error);
+    }
+});
+
+// Handle cleanup on application exit
+process.on('exit', async () => {
+    try {
+        if (pool) {
+            await pool.close();
+            pool = null;
+        }
+    } catch (error) {
+        console.error('Error closing pool:', error);
+    }
+});
