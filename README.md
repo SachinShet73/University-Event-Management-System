@@ -55,7 +55,6 @@ Each interface is designed with user experience in mind, featuring:
 - Role-specific functionality
 </details>
 
-
 ## ✨ Features
 
 ### User Management
@@ -126,6 +125,7 @@ Each interface is designed with user experience in mind, featuring:
     "xlsx": "^0.18.0"
   }
 }
+```
 
 ### Development Dependencies
 ```json
@@ -144,6 +144,7 @@ Each interface is designed with user experience in mind, featuring:
     "typescript": "^5"
   }
 }
+```
 
 ### Features
 - Server-side rendering
@@ -305,14 +306,6 @@ yarn dev
 
 [![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 📊 Stats
-
-[![Activity](https://img.shields.io/github/commit-activity/m/yourusername/university-event-management?style=flat-square)](https://github.com/yourusername/university-event-management/commits/main)
-[![Last Commit](https://img.shields.io/github/last-commit/yourusername/university-event-management?style=flat-square)](https://github.com/yourusername/university-event-management/commits/main)
-[![GitHub Repo Size](https://img.shields.io/github/repo-size/yourusername/university-event-management?style=flat-square)](https://github.com/yourusername/university-event-management)
-
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
 ## 🙏 Acknowledgments
@@ -325,10 +318,3 @@ Special thanks to:
 - Tailwind CSS for the styling system
 - shadcn/ui for the component library
 - Lucide for the icon set
-
-## 📫 Contact & Support
-
-[![GitHub Discussions](https://img.shields.io/github/discussions/yourusername/university-event-management?style=flat-square)](https://github.com/yourusername/university-event-management/discussions)
-[![Twitter](https://img.shields.io/twitter/follow/yourusername?style=social)](https://twitter.com/yourusername)
-
-For support, please open an issue in the GitHub repository or contact the development team.
