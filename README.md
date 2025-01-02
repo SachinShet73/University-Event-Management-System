@@ -292,10 +292,6 @@ yarn dev
 
 ## 🤝 Contributing
 
-[![Contributors](https://img.shields.io/github/contributors/yourusername/university-event-management?style=flat-square)](https://github.com/yourusername/university-event-management/graphs/contributors)
-[![Issues](https://img.shields.io/github/issues/yourusername/university-event-management?style=flat-square)](https://github.com/yourusername/university-event-management/issues)
-[![PRs](https://img.shields.io/github/issues-pr/yourusername/university-event-management?style=flat-square)](https://github.com/yourusername/university-event-management/pulls)
-
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
 3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
