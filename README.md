@@ -1,8 +1,62 @@
 # University Event Management System
 
-A full-stack web application built with Next.js for managing university events, venues, and attendees. The system provides different roles (Admin, Organizer, and Attendee) with specific functionalities to handle event creation, registration, and management.
+<div align="center">
 
-## Features
+[![Next.js](https://img.shields.io/badge/Next.js-14.0.0-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-18.0.0-blue?style=for-the-badge&logo=react)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0.0-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.3.0-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+[![MS SQL Server](https://img.shields.io/badge/SQL_Server-2019-CC2927?style=for-the-badge&logo=microsoft-sql-server)](https://www.microsoft.com/sql-server)
+
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)](http://makeapullrequest.com)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=for-the-badge)](https://github.com/yourusername/university-event-management/graphs/commit-activity)
+
+</div>
+
+## 📋 Overview
+
+A comprehensive full-stack web application built with Next.js for managing university events, venues, and attendees. The system provides different roles (Admin, Organizer, and Attendee) with specific functionalities to handle event creation, registration, and management.
+
+## 📸 Screenshots
+
+<details>
+<summary>Click to view screenshots</summary>
+
+### Login Screen
+![Login Screen](public/images/login.png)
+*Secure login interface with email and password authentication*
+
+### User Management
+![User Management](public/images/user-management.png)
+*Admin interface for managing users with different roles (Admin, Organizer, Attendee)*
+
+### Venue Management
+![Venue Management](public/images/venues.png)
+*Interface for managing various venues and their capacities*
+
+### Event Creation
+![Event Creation](public/images/create-event.png)
+*Form for creating new events with detailed information*
+
+### Event List (Organizer View)
+![Event List Organizer](public/images/events-organizer.png)
+*Events dashboard for organizers with edit and cancel options*
+
+### Event List (Attendee View)
+![Event List Attendee](public/images/events-attendee.png)
+*Events view for attendees with registration options*
+
+Each interface is designed with user experience in mind, featuring:
+- Clean and intuitive layouts
+- Responsive design for all screen sizes
+- Clear action buttons and status indicators
+- Comprehensive information display
+- Role-specific functionality
+</details>
+
+
+## ✨ Features
 
 ### User Management
 - Role-based authentication (Admin, Organizer, Attendee)
@@ -35,7 +89,7 @@ A full-stack web application built with Next.js for managing university events, 
 - Venue search
 - User search for admins
 
-## Technology Stack
+## 🛠️ Technology Stack
 
 ### Frontend
 - Next.js 13+ (App Router)
@@ -106,7 +160,7 @@ A full-stack web application built with Next.js for managing university events, 
 - Modern typography with Geist font
 - Icon system using Lucide React
 
-## Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
 - Node.js 16.8 or later
@@ -197,7 +251,7 @@ yarn dev
 
 6. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 ├── app/
@@ -209,7 +263,9 @@ yarn dev
 └── styles/          # Global styles
 ```
 
-## API Endpoints
+## 🔌 API Endpoints
+
+[![API Status](https://img.shields.io/badge/API-Documented-green.svg?style=flat-square)]()
 
 ### Authentication
 - `POST /api/auth` - User login
@@ -233,7 +289,11 @@ yarn dev
 - `PUT /api/users/[id]` - Update user
 - `DELETE /api/users/[id]` - Delete user
 
-## Contributing
+## 🤝 Contributing
+
+[![Contributors](https://img.shields.io/github/contributors/yourusername/university-event-management?style=flat-square)](https://github.com/yourusername/university-event-management/graphs/contributors)
+[![Issues](https://img.shields.io/github/issues/yourusername/university-event-management?style=flat-square)](https://github.com/yourusername/university-event-management/issues)
+[![PRs](https://img.shields.io/github/issues-pr/yourusername/university-event-management?style=flat-square)](https://github.com/yourusername/university-event-management/pulls)
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
@@ -241,15 +301,34 @@ yarn dev
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## License
+## 📝 License
+
+[![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 📊 Stats
+
+[![Activity](https://img.shields.io/github/commit-activity/m/yourusername/university-event-management?style=flat-square)](https://github.com/yourusername/university-event-management/commits/main)
+[![Last Commit](https://img.shields.io/github/last-commit/yourusername/university-event-management?style=flat-square)](https://github.com/yourusername/university-event-management/commits/main)
+[![GitHub Repo Size](https://img.shields.io/github/repo-size/yourusername/university-event-management?style=flat-square)](https://github.com/yourusername/university-event-management)
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
-## Acknowledgments
+## 🙏 Acknowledgments
+
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
+[![shadcn/ui](https://img.shields.io/badge/shadcn/ui-000000?style=for-the-badge&logo=shadcnui&logoColor=white)](https://ui.shadcn.com)
+[![Lucide Icons](https://img.shields.io/badge/Lucide_Icons-5E5CE6?style=for-the-badge)](https://lucide.dev)
+
+Special thanks to:
 - Tailwind CSS for the styling system
 - shadcn/ui for the component library
 - Lucide for the icon set
 
-## Support
+## 📫 Contact & Support
+
+[![GitHub Discussions](https://img.shields.io/github/discussions/yourusername/university-event-management?style=flat-square)](https://github.com/yourusername/university-event-management/discussions)
+[![Twitter](https://img.shields.io/twitter/follow/yourusername?style=social)](https://twitter.com/yourusername)
 
 For support, please open an issue in the GitHub repository or contact the development team.
