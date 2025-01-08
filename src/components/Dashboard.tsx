@@ -85,7 +85,7 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
       case 'create-event':
         return (
           <>
-            <h1 className="text-2xl font-bold mb-4">Create Event</h1>
+            <h1 className="text-2xl font-bold mb-4"></h1>
             <EventForm 
               onClose={() => setCurrentView('events')}
               onSave={handleSaveEvent}
@@ -112,7 +112,8 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
       case 'venues':
         return (
           <>
-            <h1 className="text-2xl font-bold mb-4">Venue Management</h1>
+            <h1 className="text-2xl font-bold text-gray-900 mb-4">Venue Management</h1>
+
             <Venues />
           </>
         );
@@ -120,7 +121,7 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
       case 'attendees':
         return (
           <>
-            <h1 className="text-2xl font-bold mb-4">User Management</h1>
+            <h1 className="text-2xl font-bold mb-4"></h1>
             <Attendees />
           </>
         );
