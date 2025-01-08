@@ -46,7 +46,7 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
         { id: 'events', label: 'Events', icon: Calendar },
         { id: 'create-event', label: 'Create Event', icon: PlusCircle },
         { id: 'venues', label: 'Venues', icon: MapPin },
-        { id: 'attendees', label: 'Attendees', icon: Users }
+        { id: 'attendees', label: 'Profiles', icon: Users }
       ];
     } else if (user.UserRole.toLowerCase() === 'organizer') {
       return [
