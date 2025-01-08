@@ -220,8 +220,8 @@ export default function Events({ userRole, onEdit, userId }: EventsProps) {
 
       {/* Tickets Modal */}
       {showTickets && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg p-6 max-w-2xl w-full">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 overflow-y-auto">
+        <div className="bg-white rounded-lg p-6 max-w-2xl w-full my-8">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-xl font-bold text-gray-900">My Tickets</h3>
               <button
