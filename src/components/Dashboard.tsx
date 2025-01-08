@@ -65,7 +65,7 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
       case 'dashboard':
         return (
           <>
-            <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
+            <h1 className="text-2xl font-bold text-gray-900 mb-4">Admin Dashboard</h1>
             <AdminDashboard />
           </>
         );
@@ -98,7 +98,7 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
       case 'edit-event':
         return (
           <>
-            <h1 className="text-2xl font-bold mb-4">Edit Event</h1>
+            <h1 className="text-2xl font-bold mb-4"></h1>
             <EventForm 
               eventId={selectedEventId}
               onClose={() => setCurrentView('events')}
