@@ -210,7 +210,7 @@ DB_PASSWORD=your_password
 2. Create and Set Up Database
    - Open SSMS or Azure Data Studio
    - Connect to your SQL Server instance
-   - Open the `/lib/sql/setup.sql` script
+   - Open the `UniversityEventManagementSystem_Backup.sql` script
    - Execute the script to:
      - Create the database
      - Create all required tables
